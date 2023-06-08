@@ -32,4 +32,12 @@ public class Sateservices {
         states state=repository.findById(id).get();
         repository.delete(state);
     }
+
+    public states update(Integer id, states state) {
+        states updatstate= this.repository.findById(id).get();
+        updatstate.setState(state.getState());
+        updatstate.setUpdatedDate(state.getUpdatedDate());
+        repository.save(updatstate);
+        return updatstate;
+    }
 }

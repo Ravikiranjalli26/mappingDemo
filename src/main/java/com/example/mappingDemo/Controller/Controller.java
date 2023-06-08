@@ -43,9 +43,10 @@ public class Controller {
 	}
 	
 	@PutMapping("users/{id}")
-	public ResponseEntity<users> update(@PathVariable(value="id") Integer id,@Validated @RequestBody users state) {
+	public ResponseEntity<users> update(@PathVariable(value="id") Integer id,@Validated @RequestBody users user) {
 		users updatstate= this.serevices.findById(id).get();
-		updatstate.setName(state.getName());
+		updatstate.setName(user.getName());
+		updatstate.setUpdatedDate();
 		serevices.save(updatstate);
 		return new ResponseEntity<>(updatstate,HttpStatus.OK);
 	}
@@ -53,7 +54,6 @@ public class Controller {
 	@DeleteMapping("users/{id}")
 	public ResponseEntity<String> delete(@PathVariable(value="id") Integer id ) {
 		serevices.delete(id);
-		
 		return new ResponseEntity<>("User deleted",HttpStatus.OK) ;
 		
 	}

@@ -38,9 +38,7 @@ public class StatesController {
 
     @PutMapping("states/{id}")
     public ResponseEntity<states> update(@PathVariable(value="id") Integer id, @Validated @RequestBody states state) {
-        states updatstate= this.services.findById(id).get();
-        updatstate.setState(state.getState());
-        services.save(updatstate);
+       states updatstate = services.update(id,state);
         return new ResponseEntity<>(updatstate, HttpStatus.OK);
     }
 

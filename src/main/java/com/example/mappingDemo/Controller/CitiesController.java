@@ -33,8 +33,9 @@ public class CitiesController {
     @PutMapping("cities/{id}")
     public cities update(@RequestBody cities city,@PathVariable(value = "id") Integer id){
         cities existingCity = services.findById(id).get();
-        existingCity.setStates(city.getStates());
-        return services.create(city);
+        existingCity.setName(city.getName());
+        existingCity.setUpdatedDate();
+        return services.create(existingCity);
     }
     @DeleteMapping("cities/{id}")
     public ResponseEntity<String> Delete(@PathVariable(value = "id") Integer id){

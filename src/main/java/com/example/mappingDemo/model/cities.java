@@ -1,5 +1,6 @@
 package com.example.mappingDemo.model;
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -12,9 +13,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name="cities")
+@SQLDelete(sql = "UPDATE cities SET is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted=false")
 public class cities {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -22,7 +27,15 @@ public class cities {
 	
 	@Column(name="name")
 	private String name;
-	
+
+	@Column(name = "created_date")
+	private Date CreatedDate = new Date();
+
+	@Column(name = "updated_date")
+	private Date UpdatedDate ;
+
+	@Column(name = "is_deleted")
+	private boolean isDeleted = Boolean.FALSE;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="city")
 	//@JoinColumn(name="city_id")
 	private List<users> user;
@@ -64,10 +77,25 @@ public class cities {
 	public void setStates(states states) {
 		this.states = states;
 	}
-	
-	
-	
-//	public List<users> getUser() {
+
+	public Date getCreatedDate() {
+		return CreatedDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		CreatedDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return UpdatedDate=new Date();
+	}
+
+	public void setUpdatedDate() {
+		UpdatedDate = new Date();
+	}
+
+
+	//	public List<users> getUser() {
 //		return user;
 //	}
 //
